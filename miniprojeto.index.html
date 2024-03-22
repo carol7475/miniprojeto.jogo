@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>miniprojeto_jogo</title>
+  </head>
+  <body>
+    <script>
+      const catalogo = [];
+
+      function Jogo(nome, preco, descricao) {
+        this.nome = nome;
+        this.preco = preco;
+        this.descricao = descricao;
+      }
+
+      function Add_Jogo() {
+        const nome = prompt("Digite o nome do jogo que deseja cadastrar:");
+        const preco = parseFloat(prompt("Digite o preço do jogo:"));
+        const descricao = prompt("Digite uma descrição para o jogo:");
+
+        const novoJogo = new Jogo(nome, preco, descricao);
+        catalogo.push(novoJogo);
+        alert("Sucesso! Mais um jogo incrivel adicionado a sua coleção ;)");
+      }
+
+      function Procurar_Jogo() {
+        const nome = prompt("Digite o nome do jogo que deseja buscar:");
+        const jogoEncontrado = catalogo.find((jogo) => jogo.nome === nome);
+
+        if (jogoEncontrado) {
+          alert(
+            `Nome: ${jogoEncontrado.nome}\nPreço: ${jogoEncontrado.preco}\nDescrição: ${jogoEncontrado.descricao}`
+          );
+        } else {
+          alert("Ops, o jogo não foi encontrado!");
+        }
+      }
+
+      function Atualizar_Jogo() {
+        const nome = prompt("Digite o nome do jogo que deseja atualizar:");
+        const jogoIndex = catalogo.findIndex((jogo) => jogo.nome === nome);
+
+        if (jogoIndex !== -1) {
+          const novoPreco = parseFloat(
+            prompt("Digite o novo preço para o jogo:")
+          );
+          const novaDescricao = prompt("Digite uma nova descrição para jogo:");
+          catalogo[jogoIndex].preco = novoPreco;
+          catalogo[jogoIndex].descricao = novaDescricao;
+          alert("O jogo atualizado com sucesso! Divirta-se.");
+        } else {
+          alert("Ops, o jogo não foi encontrado!");
+        }
+      }
+
+      function Visualizar() {
+        if (catalogo.length > 0) {
+          let listaJogos = "Lista de jogos cadastrados:\n";
+          catalogo.forEach((jogo) => {
+            listaJogos += `Nome: ${jogo.nome}, Preço: ${jogo.preco}, Descrição: ${jogo.descricao}\n`;
+          });
+          alert(listaJogos);
+        } else {
+          alert("Nenhum jogo foi encontrado no catálogo :(");
+        }
+      }
+
+      function Remover_Jogo() {
+        const nome = prompt("Digite o nome do jogo que deseja remover:");
+        const jogoIndex = catalogo.findIndex((jogo) => jogo.nome === nome);
+
+        if (jogoIndex !== -1) {
+          catalogo.splice(jogoIndex, 1);
+          alert("O jogo removido com sucesso!");
+        } else {
+          alert("Ops, o jogo não foi encontrado!");
+        }
+      }
+
+      let continuar = true;
+      while (continuar) {
+        const opcao = prompt(
+          "Escolha uma opção:\n1. Adicionar um jogo\n2. Buscar um jogo\n3. Atualizar jogo\n4. Visualizar todos os jogos disponiveis\n5. Remover algum jogo\n6. Sair"
+        );
+
+        switch (opcao) {
+          case "1":
+            Add_Jogo();
+            break;
+          case "2":
+            Procurar_Jogo();
+            break;
+          case "3":
+            Atualizar_Jogo();
+            break;
+          case "4":
+            Visualizar();
+            break;
+          case "5":
+            Remover_Jogo();
+            break;
+          case "6":
+            continuar = false;
+            break;
+          default:
+            alert(
+              "Ops, parece que houve um pequeno erro de digitação. Por favor tente novamente ;)"
+            );
+        }
+      }
+    </script>
+  </body>
+</html>
